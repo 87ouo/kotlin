@@ -412,6 +412,14 @@ allprojects {
         register("listRuntimeJar") { listConfigurationContents("runtimeJar") }
 
         register("listDistJar") { listConfigurationContents("distJar") }
+
+        register("resolveAllConfigurations") {
+            doLast {
+                project.configurations
+                    .filter { it.isCanBeResolved }
+                    .forEach { it.resolve() }
+            }
+        }
     }
 
     afterEvaluate {
